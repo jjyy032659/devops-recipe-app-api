@@ -63,7 +63,7 @@ docker compose up
 
 ## Course Documentation
 
-This section contains supplementary documentation for the course steps.
+This section contains supplementary documentation for the course steps. hello world
 
 ### AWS CLI
 
