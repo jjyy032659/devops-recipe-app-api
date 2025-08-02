@@ -167,24 +167,6 @@ data "aws_iam_policy_document" "rds" {
     resources = ["*"]
   }
 
-  statement {
-    sid    = "CreateRdsServiceLinkedRole" #optional
-    effect = "Allow"
-    actions = [
-      "iam:CreateServiceLinkedRole",
-      "iam:DeleteServiceLinkedRole"
-    ]
-    resources = [
-      "arn:aws:iam::*:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS"
-    ]
-    condition {
-      test     = "StringEquals"
-      variable = "iam:AWSServiceName"
-      values   = ["rds.amazonaws.com"]
-    }
-  }
-
-
 
 }
 
@@ -200,13 +182,13 @@ data "aws_iam_policy_document" "service_linked_rds" {
     }
   }
 }
- 
+
 resource "aws_iam_policy" "service_linked_rds" {
   name        = "${aws_iam_user.cd.name}-service_linked_rds"
   description = "Allow Amazon RDS to call AWS services on behalf of your DB instances."
   policy      = data.aws_iam_policy_document.service_linked_rds.json
 }
- 
+
 resource "aws_iam_user_policy_attachment" "service_linked_rds" {
   user       = aws_iam_user.cd.name
   policy_arn = aws_iam_policy.service_linked_rds.arn
