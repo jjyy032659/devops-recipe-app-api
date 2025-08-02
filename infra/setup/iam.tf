@@ -128,7 +128,7 @@ data "aws_iam_policy_document" "ec2" {
       "ec2:AttachInternetGateway",
       "ec2:ModifyVpcAttribute",
       "ec2:RevokeSecurityGroupIngress",
-      "ec2:DescribeAvailabilityZones"
+      "ec2:DescribeAvailabilityZones",
     ]
     resources = ["*"]
   }
@@ -187,7 +187,6 @@ data "aws_iam_policy_document" "rds" {
 
 
 }
-
 data "aws_iam_policy_document" "service_linked_rds" {
   statement {
     effect    = "Allow"
@@ -211,6 +210,11 @@ resource "aws_iam_user_policy_attachment" "service_linked_rds" {
   user       = aws_iam_user.cd.name
   policy_arn = aws_iam_policy.service_linked_rds.arn
 }
+
+
+
+
+
 
 resource "aws_iam_policy" "rds" {
   name        = "${aws_iam_user.cd.name}-rds"
